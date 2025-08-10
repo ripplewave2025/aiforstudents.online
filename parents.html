@@ -1,146 +1,230 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>For Parents & Teachers — AI for Students</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>For Parents & Teachers — @techinahurry</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&family=Caladea:wght@700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0b0c10;
-      --fg:#e5e7eb;
-      --glass:rgba(0,0,0,.55);
-      --border:rgba(120,120,150,.3);
-
-      /* Card theme */
-      --hue-primary:223;
-      --hue-secondary:178;
+      --bg:#0b0c10; --fg:#e5e7eb; --glass:rgba(0,0,0,.55); --border:rgba(120,120,150,.3);
+      --hue-primary:223; --hue-secondary:178;
       --primary500:hsl(var(--hue-primary),90%,50%);
       --primary600:hsl(var(--hue-primary),90%,60%);
       --primary700:hsl(var(--hue-primary),90%,70%);
       --secondary800:hsl(var(--hue-secondary),90%,80%);
-      --white0:hsla(0,0%,100%,0);
-      --white50:hsla(0,0%,100%,.05);
-      --white200:hsla(0,0%,100%,.2);
-      --white500:hsla(0,0%,100%,.5);
-      --white:#fff;
-
-      --width: 21.1em;
-      --height: 12.8em;
-      --move-by: 2em;
-      --blur: 12px;
+      --white0:hsla(0,0%,100%,0); --white50:hsla(0,0%,100%,.05);
+      --white200:hsla(0,0%,100%,.2); --white500:hsla(0,0%,100%,.5); --white:#fff;
+      --width:21.1em; --height:12.8em; --move-by:2em; --blur:12px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0; background:radial-gradient(1200px 600px at 50% -10%, rgba(88,101,242,0.08), transparent 70%), var(--bg);
-      color:var(--fg); font-family:"Work Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:"Work Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
 
-    /* Header (same look as home) */
-    header{position:fixed; inset-inline:0; top:0; z-index:20; backdrop-filter:blur(6px); background:rgba(0,0,0,.4); border-bottom:1px solid #151823}
-    .nav{max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 20px}
-    .nav a{color:#cbd5e1; text-decoration:none; margin-left:18px; font-size:14px}
-    .nav a:hover{color:#fff}
+    header{position:fixed;inset-inline:0;top:0;z-index:20;backdrop-filter:blur(6px);background:rgba(0,0,0,.4);border-bottom:1px solid #151823}
+    .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px}
+    .nav a{color:#cbd5e1;text-decoration:none;margin-left:18px;font-size:14px}
+    .nav a:hover,.nav a[aria-current="page"]{color:#fff}
 
-    /* Hero */
-    .hero{min-height:100vh; display:grid; place-items:center}
-    .wrap{max-width:1100px; width:92vw; margin:120px auto 0; position:relative}
+    .hero{min-height:78vh;display:grid;place-items:center;background:radial-gradient(1200px 600px at 50% -10%,rgba(88,101,242,.08),transparent 70%)}
+    .wrap{max-width:1100px;width:92vw;margin:120px auto 0;position:relative}
 
-    /* Cards block (compiled CSS, no SCSS) */
-    .cards{position:relative; width:calc(var(--width) + var(--move-by)*2); height:calc(var(--height) + var(--move-by)*2); margin:0 auto}
-    .card{
-      position:absolute; top:var(--move-by); left:calc(var(--move-by) * -1);
-      width:var(--width); height:var(--height); transform:translate(-50%,-50%);
-      border-radius:1em; box-shadow:0 .25em .375em rgba(0,0,0,.1);
-      background-image:linear-gradient(90deg,var(--primary600),var(--primary500));
-    }
-    .card--glass{
-      top:calc(var(--move-by) * -1); left:var(--move-by);
-      background-image:linear-gradient(90deg, var(--white200), var(--white50));
-      color:transparent; backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur));
-      position:absolute; width:var(--width); height:var(--height); transform:translate(-50%,-50%); border-radius:1em;
-    }
-    .card--glass::before, .card--glass::after{
-      content:""; position:absolute; inset:0; border-radius:inherit
-    }
-    .card--glass::before{ border:1px solid var(--white); -webkit-mask-image:linear-gradient(135deg, var(--white), var(--white0) 50%); mask-image:linear-gradient(135deg, var(--white), var(--white0) 50%) }
-    .card--glass::after{ border:1px solid var(--primary500); -webkit-mask-image:linear-gradient(135deg, var(--white0) 50%, var(--white)); mask-image:linear-gradient(135deg, var(--white0) 50%, var(--white)) }
-
-    .card__content{
-      position:relative; z-index:1; height:100%; padding:1.25em 1.5em; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start;
+    /* Frosted cards */
+    .cards{position:relative;width:calc(21.1em + 4em);height:calc(12.8em + 4em);margin:0 auto}
+    .card{position:absolute;top:2em;left:-2em;width:21.1em;height:12.8em;transform:translate(-50%,-50%);
+      border-radius:1em;box-shadow:0 .25em .375em rgba(0,0,0,.1);
+      background-image:linear-gradient(90deg,var(--primary600),var(--primary500))}
+    .card--glass{position:absolute;top:-2em;left:2em;width:21.1em;height:12.8em;transform:translate(-50%,-50%);
+      border-radius:1em;background-image:linear-gradient(90deg,var(--white200),var(--white50));
+      color:transparent;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    .card--glass::before,.card--glass::after{content:"";position:absolute;inset:0;border-radius:inherit}
+    .card--glass::before{border:1px solid var(--white);-webkit-mask-image:linear-gradient(135deg,var(--white),var(--white0) 50%);mask-image:linear-gradient(135deg,var(--white),var(--white0) 50%)}
+    .card--glass::after{border:1px solid var(--primary500);-webkit-mask-image:linear-gradient(135deg,var(--white0) 50%,var(--white));mask-image:linear-gradient(135deg,var(--white0) 50%,var(--white))}
+    .card__content{position:relative;z-index:1;height:100%;padding:1.25em 1.5em;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;
       background:
-        linear-gradient(var(--white0) 3.125em, var(--primary700) 3.375em, var(--secondary800) 4.5em) 0 0 / calc(var(--width) - var(--move-by)*2) 50%,
-        linear-gradient(90deg, var(--secondary800) 13em, var(--primary700) calc(var(--width) - var(--move-by)*2), var(--white0) 19.1em) 0 100% / 100% 50%,
-        linear-gradient(90deg, var(--white500) 4em, var(--white200)) 0 0 / 100% 100%;
-      -webkit-background-clip:text; background-clip:text; background-repeat:no-repeat;
-    }
-    .card__title, .card__logo{font-weight:700; line-height:1.17; font-size:1.5em}
-    .card__title{font-family:Caladea, serif; width:75%}
-    .card__logo{text-align:end; width:25%}
-    .card__url{font-size:.75em; align-self:flex-end; margin-inline-start:auto}
+        linear-gradient(var(--white0) 3.125em,var(--primary700) 3.375em,var(--secondary800) 4.5em) 0 0 / calc(21.1em - 4em) 50%,
+        linear-gradient(90deg,var(--secondary800) 13em,var(--primary700) calc(21.1em - 4em),var(--white0) 19.1em) 0 100% / 100% 50%,
+        linear-gradient(90deg,var(--white500) 4em,var(--white200)) 0 0 / 100% 100%;
+      -webkit-background-clip:text;background-clip:text;background-repeat:no-repeat}
+    .card__title,.card__logo{font-weight:700;line-height:1.17;font-size:1.5em}
+    .card__title{font-family:Caladea,serif;width:75%}
+    .card__logo{text-align:end;width:25%}
+    .card__url{font-size:.75em;align-self:flex-end;margin-inline-start:auto}
 
-    /* Content sections */
-    .grid{display:grid; gap:14px; margin-top:220px}
-    .box{border:1px solid var(--border); border-radius:14px; padding:16px; background:var(--glass)}
-    h2{margin:0 0 8px 0; font-size:18px}
-    p{margin:0; color:#cfd3dc}
-    .cta-row{display:flex; gap:12px; margin-top:12px}
-    .btn{padding:10px 14px; border-radius:12px; border:1px solid #2b2f43; background:white; color:black; font-weight:700; text-decoration:none}
-    .btn.ghost{background:transparent; color:#d1d5db; border:1px solid #3a3f57}
+    .builder{margin:28px auto 0;display:grid;gap:12px;max-width:760px}
+    .row{display:flex;flex-wrap:wrap;gap:10px}
+    .field{flex:1;min-width:160px}
+    .select,.input{width:100%;padding:10px 12px;border-radius:12px;border:1px solid #2b2f43;background:#0f1324;color:#e5e7eb}
+    .out{border:1px solid var(--border);border-radius:14px;background:var(--glass);padding:12px}
+    .muted{color:#aab1bf;font-size:.9rem}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid #2b2f43;background:#fff;color:#000;font-weight:700;text-decoration:none}
+    .btn.ghost{background:transparent;color:#d1d5db;border:1px solid #3a3f57}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+
+    .section{padding:42px 20px 90px;background:linear-gradient(90deg,#0f1220,#0b0c10)}
+    .content{max-width:980px;margin:0 auto;display:grid;gap:16px}
+    .glass{border:1px solid var(--border);border-radius:16px;background:var(--glass);padding:22px}
+    .glass h3{margin:0 0 6px 0}
+    .list{margin:8px 0 0 16px}
+    .pledge{display:flex;gap:10px;align-items:center;margin-top:6px}
+    .ok{display:inline-block;padding:2px 8px;border-radius:999px;background:#113a1c;border:1px solid #205e2d;color:#b8f5c6;font-size:.8rem}
+    .warn{display:inline-block;padding:2px 8px;border-radius:999px;background:#3a1111;border:1px solid #5e2020;color:#ffc2c2;font-size:.8rem}
   </style>
 </head>
 <body>
   <header>
     <nav class="nav">
-      <a href="./index.html" style="font-weight:700">AI for Students</a>
+      <a href="./index.html" style="font-weight:700">@techinahurry</a>
       <div>
         <a href="./tools.html">Tools</a>
         <a href="./learn.html">Learn</a>
-        <a href="./parents.html">Parents</a>
+        <a href="./parents.html" aria-current="page">Parents</a>
       </div>
     </nav>
   </header>
 
   <main class="hero">
     <div class="wrap">
-      <!-- Glass headline card -->
       <div class="cards" aria-hidden="true">
         <div class="card"></div>
         <div class="card card--glass">
           <div class="card__content">
-            <h1 class="card__title">Transforming technology to serve the people</h1>
-            <div class="card__logo">XYZ</div>
-            <p class="card__url">someagency.xyz</p>
+            <h1 class="card__title">AI that trains kids to think — not copy</h1>
+            <div class="card__logo">@techinahurry</div>
+            <p class="card__url">@techinahurry</p>
           </div>
         </div>
       </div>
 
-      <!-- Parents & Teachers content -->
-      <div class="grid">
-        <div class="box">
-          <h2>For Parents</h2>
-          <p>Quick safety rules, how to supervise AI, and how to ask better questions with your child.</p>
-          <div class="cta-row">
-            <a class="btn" href="./learn.html#parents">Safety Guide</a>
-            <a class="btn ghost" href="./tools.html">Explore Student Tools</a>
+      <div class="builder" id="builder">
+        <div class="row">
+          <div class="field">
+            <label class="muted">Grade</label>
+            <select id="grade" class="select">
+              <option>Class 4</option><option>Class 5</option><option selected>Class 6</option>
+              <option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="muted">Subject</label>
+            <select id="subject" class="select">
+              <option>Math</option><option selected>Science</option><option>English</option><option>History</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="muted">Goal</label>
+            <select id="goal" class="select">
+              <option selected>Understand a topic</option>
+              <option>Practice problems</option>
+              <option>Summarize notes</option>
+              <option>Make a quiz</option>
+            </select>
           </div>
         </div>
-        <div class="box">
-          <h2>For Teachers</h2>
-          <p>Lesson ideas, rubric-friendly prompts, and AI use policies you can copy/paste.</p>
-          <div class="cta-row">
-            <a class="btn" href="./learn.html#lessons">Lesson Starters</a>
-            <a class="btn ghost" href="./index.html#tools">Classroom Tools</a>
+        <div class="row">
+          <div class="field">
+            <label class="muted">Topic</label>
+            <input id="topic" class="input" placeholder="e.g., Fractions / Photosynthesis / Nouns" />
           </div>
         </div>
+        <div class="out">
+          <div class="muted" style="margin-bottom:6px">Prompt</div>
+          <div id="prompt" style="white-space:pre-wrap"></div>
+        </div>
+        <div class="actions">
+          <button id="copyBtn" class="btn">Copy</button>
+          <a class="btn ghost" id="openGPT" target="_blank" rel="noopener"
+             href="https://chatgpt.com/g/g-68988c79eb2c8191a6975036a6b86284-ai-for-students">
+            Open AI Tutor
+          </a>
+        </div>
+        <div class="muted">Use 60-second rounds. Ask one thing, then “show steps” and “quiz me with 3 problems.”</div>
       </div>
     </div>
   </main>
+
+  <section class="section">
+    <div class="content">
+      <div class="glass">
+        <h2 style="margin:0 0 10px 0">How we work with students</h2>
+        <div class="glass">
+          <h3>1) Simple rules</h3>
+          <ul class="list">
+            <li>Short sessions (60s). One question at a time.</li>
+            <li>Ask for steps, examples, and a quick self-quiz.</li>
+            <li>Children use it with an adult in the room.</li>
+          </ul>
+        </div>
+        <div class="glass" style="margin-top:12px">
+          <h3>2) Build thinking, not copying</h3>
+          <ul class="list">
+            <li>We rewrite in the student’s own words.</li>
+            <li>We practice, check, and reflect (“what changed?”).</li>
+            <li>We celebrate effort over instant answers.</li>
+          </ul>
+        </div>
+        <div class="glass" style="margin-top:12px">
+          <h3>3) Truthfulness matters</h3>
+          <p class="pledge">
+            <input type="checkbox" id="pledgeBox">
+            <label for="pledgeBox">I’ll be honest if I don’t know. I’ll show my work and verify facts.</label>
+          </p>
+          <span id="pledgeBadge" class="warn">Pledge not set</span>
+        </div>
+      </div>
+
+      <div class="actions" style="margin-top:16px">
+        <a class="btn" href="./index.html">Back to Home</a>
+        <a class="btn ghost" href="./tools.html">Student Tools</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const grade = document.getElementById('grade');
+    const subject = document.getElementById('subject');
+    const goal = document.getElementById('goal');
+    const topic = document.getElementById('topic');
+    const promptOut = document.getElementById('prompt');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function buildPrompt(){
+      const g = grade.value;
+      const s = subject.value;
+      const t = (topic.value || 'Fractions').trim();
+      const map = {
+        'Understand a topic': `Explain ${t} like I am in ${g}. Use simple words, then give a real-life example.`,
+        'Practice problems': `Give 5 practice problems on ${t} for ${g}. Show 1 worked example, then give me 4 to try.`,
+        'Summarize notes': `Summarize ${t} for ${g} in my own words. Then ask 3 check questions.`,
+        'Make a quiz': `Create a quick 5-question quiz on ${t} for ${g} with answers at the end.`
+      };
+      const core = map[goal.value] || map['Understand a topic'];
+      const safety = `If something is uncertain, say so. Always show steps and sources.`;
+      const extras = (s === 'Math') ? `When solving, line up steps and check with a second method.`
+        : (s === 'Science') ? `Use a small diagram or analogy.`
+        : (s === 'English') ? `Give one example sentence and a quick rewrite task.`
+        : `Give one key fact, one misconception, and a quick check question.`;
+      promptOut.textContent = `${core}\n\nSubject: ${s}\nGoal: ${goal.value}\n\n${extras}\n${safety}`;
+    }
+    [grade,subject,goal,topic].forEach(el=>el.addEventListener('input',buildPrompt));
+    buildPrompt();
+
+    copyBtn.addEventListener('click', async ()=>{
+      try{ await navigator.clipboard.writeText(promptOut.textContent);
+        copyBtn.textContent='Copied!'; setTimeout(()=>copyBtn.textContent='Copy',900);
+      }catch(e){ alert('Copy failed'); }
+    });
+
+    const pledgeBox = document.getElementById('pledgeBox');
+    const pledgeBadge = document.getElementById('pledgeBadge');
+    pledgeBox.addEventListener('change',()=>{
+      if(pledgeBox.checked){ pledgeBadge.textContent='Truthfulness: On'; pledgeBadge.className='ok'; }
+      else { pledgeBadge.textContent='Pledge not set'; pledgeBadge.className='warn'; }
+    });
+  </script>
 </body>
 </html>
