@@ -1,54 +1,21 @@
-[
-  {
-    "id": "chatbuddy",
-    "name": "Chatbuddy",
-    "url": "https://chat.openai.com/",
-    "goodAt": ["Brainstorming", "Explaining", "Outlining"],
-    "notFor": ["Final answers without checking", "Medical/legal"],
-    "prompts": [
-      "Explain photosynthesis like I'm in Class 6. Then quiz me with 3 questions.",
-      "Show steps to solve: 3x + 12 = 48. Ask me the next step.",
-      "Turn this paragraph into 5 bullet points with a one-line summary."
-    ],
-    "gradeMin": 6, "gradeMax": 10
-  },
-  {
-    "id": "mathsolver",
-    "name": "Math Solver",
-    "url": "https://www.wolframalpha.com/",
-    "goodAt": ["Calculations", "Graphs", "Units"],
-    "notFor": ["Beginner explanations"],
-    "prompts": [
-      "Check my steps for solving 2x + 5 = 15. Only tell me where the mistake is.",
-      "Plot y = 2x^2 - 3x + 1 and mark the vertex.",
-      "Give me 3 practice problems on LCM and GCD with answers."
-    ],
-    "gradeMin": 6, "gradeMax": 12
-  },
-  {
-    "id": "writingcoach",
-    "name": "Writing Coach",
-    "url": "https://quillbot.com/",
-    "goodAt": ["Grammar", "Clarity", "Paraphrase"],
-    "notFor": ["Citations", "Factual accuracy"],
-    "prompts": [
-      "Improve this sentence but keep meaning and reading level the same:",
-      "Give a rubric to grade a 200-word essay on water conservation, then score my draft:",
-      "Turn this outline into 5 slide titles + 3 bullets each."
-    ],
-    "gradeMin": 6, "gradeMax": 12
-  },
-  {
-    "id": "imagehelper",
-    "name": "Image Helper",
-    "url": "https://www.bing.com/images/create",
-    "goodAt": ["Diagrams", "Illustrations"],
-    "notFor": ["Photos of real people"],
-    "prompts": [
-      "Draw a labeled diagram of the water cycle.",
-      "Create a flowchart for the digestive system.",
-      "Design a simple poster: 'Save Electricity' with 3 tips."
-    ],
-    "gradeMin": 6, "gradeMax": 10
-  }
-]
+<link rel="stylesheet" href="site.css">
+<script defer src="./assets/js/main.js"></script>
+<header><nav class="nav">
+  <a href="index.html" style="font-weight:700">AI for Students</a>
+  <div><a href="tools.html">Tools</a><a href="learn.html">Learn</a><a href="learn.html#parents">Parents</a></div>
+</nav></header>
+
+<main class="container">
+  <h1>Free AI Tools (curated)</h1>
+  <div class="row" style="margin:8px 0 16px;">
+    <input id="q" placeholder="Search tools or prompts" style="padding:10px 12px;border:1px solid #3a3f57;border-radius:12px;width:min(360px,90vw);background:#0b0e18;color:#d1d5db;">
+    <select id="grade" style="padding:10px 12px;border:1px solid #3a3f57;border-radius:12px;background:#0b0e18;color:#d1d5db;">
+      <option value="0">All Grades</option>
+      <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+    </select>
+    <span class="small">Use AI as a helper. Verify facts.</span>
+  </div>
+  <div id="tools-grid" class="grid"></div>
+  <div id="no-results" class="small" style="display:none;margin-top:10px;">No matches. Try a different search.</div>
+  <div class="footer">Tips: add context → ask for steps → verify with textbook/site.</div>
+</main>
