@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI for Students — Learn 2× faster</title>
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --fg: #e5e7eb;
+      --accent: 238 100% 70%;
+      --accent2: 280 100% 70%;
+      --glass: rgba(0,0,0,0.55);
+      --border: rgba(120, 120, 150, 0.3);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; background: var(--bg); color: var(--fg); overflow-x: hidden; }
+
+    /* layout */
+    header { position: fixed; inset-inline: 0; top: 0; z-index: 20; backdrop-filter: blur(6px); background: rgba(0,0,0,0.4); border-bottom: 1px solid #151823; }
+    .nav { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 20px; }
+    .nav a { color: #cbd5e1; text-decoration: none; margin-left: 18px; font-size: 14px; }
+    .nav a:hover { color: white; }
+
+    .hero { position: relative; height: 100vh; min-height: 560px; display: grid; place-items: center; }
+    canvas#bg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+    .card { position: relative; z-index: 10; width: min(780px, 92vw); border-radius: 22px; background: var(--glass); border: 1px solid var(--border); box-shadow: 0 0 0 1px rgba(99,102,241,0.12), 0 24px 60px -18px rgba(59,130,246,0.4); }
+    .card .head { display:flex; align-items:center; justify-content:space-between; padding: 14px 16px; border-bottom: 1px solid #1b1f2d; }
+    .pill { position:absolute; top: 18px; left: 50%; transform: translateX(-50%); font-size: 12px; color:#a1a1aa; background: rgba(0,0,0,0.35); border: 1px solid #1b1f2d; border-radius: 999px; padding: 6px 10px; }
+    .card .body { padding: 18px; font-size: 14px; color:#e5e7eb; }
+
+    .cta { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 10; }
+    .btn { padding: 12px 20px; border-radius: 14px; border: 1px solid #2b2f43; background: white; color: black; font-weight: 600; text-decoration: none; }
+    .btn.ghost { background: transparent; color: #d1d5db; border: 1px solid #3a3f57; }
+    .btn.ghost:hover { border-color: #586089; }
+
+    /* next section demo */
+    section.more { min-height: 110vh; display: grid; place-items: center; padding: 80px 20px; background: radial-gradient(1200px 600px at 50% -10%, rgba(88,101,242,0.08), transparent 70%); }
+    .more .wrap { max-width: 1100px; color:#cbd5e1; }
+
+    /* small screens */
+    @media (max-width: 520px){
+      .nav a { margin-left: 12px; font-size: 13px; }
+      .btn { padding: 11px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div style="display:flex;gap:10px;align-items:center;font-weight:700;">AI for Students</div>
+      <div>
+        <a href="#tools">Tools</a>
+        <a href="#learn">Learn</a>
+        <a href="#parents">Parents</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <canvas id="bg" aria-hidden></canvas>
+    <div class="pill">Learn 2× faster with AI — safely</div>
+    <div class="card">
+      <div class="head">
+        <div style="font-size:14px;color:#d4d4d8;">Student Hub</div>
+        <button id="newRound" class="btn" style="padding:7px 10px;border-radius:10px;">New 60s Round</button>
+      </div>
+      <div class="body">Tap good topics/prompts • avoid distractions • 60s. This trains better questions.</div>
+    </div>
+    <div class="cta">
+      <a class="btn" href="#tools">Start Learning</a>
+      <a class="btn ghost" href="#parents">For Parents/Teachers</a>
+    </div>
+  </main>
+
+  <section class="more" id="tools">
+    <div class="wrap">
+      <h2>Next section</h2>
+      <p>Build out Tools/Learn as separate pages or sections. This file is a clean hero you can drop on a static host and customize. Split CSS/JS later if you prefer.</p>
+    </div>
+  </section>
+
+  <script>
+    // Canvas black-hole style grid + particles (no deps)
+    const cnv = document.getElementById('bg');
+    const ctx = cnv.getContext('2d');
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let W=0,H=0,cx=0,cy=0;
+
+    const state = { rings: [], spokes: [], particles: [] };
+
+    function resize(){
+      const { clientWidth:w, clientHeight:h } = cnv;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cnv.width = Math.floor(w * dpr);
+      cnv.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      W = w; H = h; cx = W*0.5; cy = H*0.65; // push hole down a bit
+      buildGeometry();
+      buildParticles();
+    }
+
+    function buildGeometry(){
+      const maxR = Math.max(W,H)*0.9;
+      const minR = Math.max(W,H)*0.08;
+      const yScale = 0.35; // perspective squash
+      const ringCount = 20;
+      const spokes = 22;
+      state.rings = [];
+      for(let i=0;i<ringCount;i++){
+        const t = i/(ringCount-1);
+        const r = minR + (maxR-minR) * Math.pow(t,1.4); // denser near center
+        state.rings.push({ r, yScale });
+      }
+      state.spokes = [];
+      for(let i=0;i<spokes;i++){
+        state.spokes.push({ angle: (i/spokes)*Math.PI*2 });
+      }
+    }
+
+    function buildParticles(){
+      const count = window.innerWidth < 640 ? 40 : 70;
+      state.particles = Array.from({length:count}, (_,i)=>({
+        r: Math.random()*Math.min(W,H)*0.45 + 8,
+        a: Math.random()*Math.PI*2,
+        spd: 0.002 + Math.random()*0.003,
+        size: Math.random()*1.3 + 0.6,
+        tw: Math.random()*0.6 + 0.4
+      }));
+    }
+
+    function drawBackground(){
+      const g = ctx.createLinearGradient(0,0,W,H);
+      g.addColorStop(0,'rgba(16,18,28,1)');
+      g.addColorStop(1,'rgba(8,9,14,1)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+      const r = Math.max(W,H)*0.6;
+      const rg = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+      rg.addColorStop(0,'rgba(88,101,242,0.12)');
+      rg.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle = rg; ctx.fillRect(0,0,W,H);
+    }
+
+    function drawGrid(time){
+      ctx.save();
+      // rings
+      ctx.strokeStyle = 'rgba(140,148,255,0.25)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for(const ring of state.rings){
+        ctx.save();
+        ctx.translate(cx,cy);
+        ctx.scale(1, ring.yScale);
+        ctx.moveTo(ring.r,0);
+        ctx.arc(0,0, ring.r, 0, Math.PI*2);
+        ctx.restore();
+      }
+      ctx.stroke();
+      // spokes
+      ctx.beginPath();
+      for(const sp of state.spokes){
+        const a = sp.angle;
+        const yScale = 0.35;
+        const R0 = Math.max(W,H)*0.08; // inner radius to avoid singularity
+        const R1 = Math.max(W,H)*0.9;
+        const steps = 32;
+        for(let i=0;i<=steps;i++){
+          const t = i/steps;
+          const r = R0 + (R1-R0)*t;
+          const x = cx + r*Math.cos(a);
+          const y = cy + yScale*r*Math.sin(a);
+          if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        }
+      }
+      ctx.strokeStyle = 'rgba(192,132,252,0.22)';
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawParticles(time){
+      for(const p of state.particles){
+        p.a += p.spd;
+        const yScale = 0.35;
+        const x = cx + p.r*Math.cos(p.a);
+        const y = cy + yScale*p.r*Math.sin(p.a);
+        const tw = 0.5 + 0.5*Math.sin(time*0.002 + p.a*3);
+        ctx.beginPath();
+        ctx.arc(x,y, p.size*(0.6+tw*0.6), 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${0.4+0.6*tw})`;
+        ctx.fill();
+      }
+    }
+
+    let raf; let last=performance.now();
+    function loop(now){
+      const dt = (now-last); last=now;
+      drawBackground();
+      drawGrid(now);
+      drawParticles(now);
+      raf = requestAnimationFrame(loop);
+    }
+
+    const ro = 'ResizeObserver' in window ? new ResizeObserver(()=>resize()) : null;
+    function attach(){
+      resize();
+      if(ro) ro.observe(cnv); else window.addEventListener('resize', resize);
+      raf = requestAnimationFrame(loop);
+    }
+    function detach(){
+      cancelAnimationFrame(raf);
+      if(ro) ro.disconnect(); else window.removeEventListener('resize', resize);
+    }
+
+    // kick
+    attach();
+    window.addEventListener('visibilitychange', ()=>{ if(document.hidden){ cancelAnimationFrame(raf); } else { raf=requestAnimationFrame(loop); }});
+
+    // demo button (no game wired in this file)
+    document.getElementById('newRound')?.addEventListener('click', ()=>{
+      // hook into your game logic later
+      for(const p of state.particles){ p.spd *= 1.08; }
+      setTimeout(()=> state.particles.forEach(p=> p.spd *= 0.925), 600);
+    });
+  </script>
+</body>
+</html>
