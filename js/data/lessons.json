@@ -1,0 +1,22 @@
+[
+  {
+    "id": "good-questions",
+    "title": "Good vs Bad Questions",
+    "gradeMin": 6, "gradeMax": 10, "minutes": 10,
+    "bullets": [
+      "Be specific and state your goal.",
+      "Add context, ask for steps/examples.",
+      "Avoid 'do my homework' or 'answer only'."
+    ]
+  },
+  {
+    "id": "verify-sources",
+    "title": "Verify Facts & Cite Sources",
+    "gradeMin": 6, "gradeMax": 10, "minutes": 12,
+    "bullets": [
+      "AI can be wrong—double-check.",
+      "Ask for sources; compare with textbook.",
+      "Write references in your own words."
+    ]
+  }
+]
