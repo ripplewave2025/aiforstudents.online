@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Parents & Teachers — AI for Students</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&family=Caladea:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --fg:#e5e7eb;
+      --glass:rgba(0,0,0,.55);
+      --border:rgba(120,120,150,.3);
+
+      /* Card theme */
+      --hue-primary:223;
+      --hue-secondary:178;
+      --primary500:hsl(var(--hue-primary),90%,50%);
+      --primary600:hsl(var(--hue-primary),90%,60%);
+      --primary700:hsl(var(--hue-primary),90%,70%);
+      --secondary800:hsl(var(--hue-secondary),90%,80%);
+      --white0:hsla(0,0%,100%,0);
+      --white50:hsla(0,0%,100%,.05);
+      --white200:hsla(0,0%,100%,.2);
+      --white500:hsla(0,0%,100%,.5);
+      --white:#fff;
+
+      --width: 21.1em;
+      --height: 12.8em;
+      --move-by: 2em;
+      --blur: 12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 600px at 50% -10%, rgba(88,101,242,0.08), transparent 70%), var(--bg);
+      color:var(--fg); font-family:"Work Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Header (same look as home) */
+    header{position:fixed; inset-inline:0; top:0; z-index:20; backdrop-filter:blur(6px); background:rgba(0,0,0,.4); border-bottom:1px solid #151823}
+    .nav{max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 20px}
+    .nav a{color:#cbd5e1; text-decoration:none; margin-left:18px; font-size:14px}
+    .nav a:hover{color:#fff}
+
+    /* Hero */
+    .hero{min-height:100vh; display:grid; place-items:center}
+    .wrap{max-width:1100px; width:92vw; margin:120px auto 0; position:relative}
+
+    /* Cards block (compiled CSS, no SCSS) */
+    .cards{position:relative; width:calc(var(--width) + var(--move-by)*2); height:calc(var(--height) + var(--move-by)*2); margin:0 auto}
+    .card{
+      position:absolute; top:var(--move-by); left:calc(var(--move-by) * -1);
+      width:var(--width); height:var(--height); transform:translate(-50%,-50%);
+      border-radius:1em; box-shadow:0 .25em .375em rgba(0,0,0,.1);
+      background-image:linear-gradient(90deg,var(--primary600),var(--primary500));
+    }
+    .card--glass{
+      top:calc(var(--move-by) * -1); left:var(--move-by);
+      background-image:linear-gradient(90deg, var(--white200), var(--white50));
+      color:transparent; backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur));
+      position:absolute; width:var(--width); height:var(--height); transform:translate(-50%,-50%); border-radius:1em;
+    }
+    .card--glass::before, .card--glass::after{
+      content:""; position:absolute; inset:0; border-radius:inherit
+    }
+    .card--glass::before{ border:1px solid var(--white); -webkit-mask-image:linear-gradient(135deg, var(--white), var(--white0) 50%); mask-image:linear-gradient(135deg, var(--white), var(--white0) 50%) }
+    .card--glass::after{ border:1px solid var(--primary500); -webkit-mask-image:linear-gradient(135deg, var(--white0) 50%, var(--white)); mask-image:linear-gradient(135deg, var(--white0) 50%, var(--white)) }
+
+    .card__content{
+      position:relative; z-index:1; height:100%; padding:1.25em 1.5em; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start;
+      background:
+        linear-gradient(var(--white0) 3.125em, var(--primary700) 3.375em, var(--secondary800) 4.5em) 0 0 / calc(var(--width) - var(--move-by)*2) 50%,
+        linear-gradient(90deg, var(--secondary800) 13em, var(--primary700) calc(var(--width) - var(--move-by)*2), var(--white0) 19.1em) 0 100% / 100% 50%,
+        linear-gradient(90deg, var(--white500) 4em, var(--white200)) 0 0 / 100% 100%;
+      -webkit-background-clip:text; background-clip:text; background-repeat:no-repeat;
+    }
+    .card__title, .card__logo{font-weight:700; line-height:1.17; font-size:1.5em}
+    .card__title{font-family:Caladea, serif; width:75%}
+    .card__logo{text-align:end; width:25%}
+    .card__url{font-size:.75em; align-self:flex-end; margin-inline-start:auto}
+
+    /* Content sections */
+    .grid{display:grid; gap:14px; margin-top:220px}
+    .box{border:1px solid var(--border); border-radius:14px; padding:16px; background:var(--glass)}
+    h2{margin:0 0 8px 0; font-size:18px}
+    p{margin:0; color:#cfd3dc}
+    .cta-row{display:flex; gap:12px; margin-top:12px}
+    .btn{padding:10px 14px; border-radius:12px; border:1px solid #2b2f43; background:white; color:black; font-weight:700; text-decoration:none}
+    .btn.ghost{background:transparent; color:#d1d5db; border:1px solid #3a3f57}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a href="./index.html" style="font-weight:700">AI for Students</a>
+      <div>
+        <a href="./tools.html">Tools</a>
+        <a href="./learn.html">Learn</a>
+        <a href="./parents.html">Parents</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <div class="wrap">
+      <!-- Glass headline card -->
+      <div class="cards" aria-hidden="true">
+        <div class="card"></div>
+        <div class="card card--glass">
+          <div class="card__content">
+            <h1 class="card__title">Transforming technology to serve the people</h1>
+            <div class="card__logo">XYZ</div>
+            <p class="card__url">someagency.xyz</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parents & Teachers content -->
+      <div class="grid">
+        <div class="box">
+          <h2>For Parents</h2>
+          <p>Quick safety rules, how to supervise AI, and how to ask better questions with your child.</p>
+          <div class="cta-row">
+            <a class="btn" href="./learn.html#parents">Safety Guide</a>
+            <a class="btn ghost" href="./tools.html">Explore Student Tools</a>
+          </div>
+        </div>
+        <div class="box">
+          <h2>For Teachers</h2>
+          <p>Lesson ideas, rubric-friendly prompts, and AI use policies you can copy/paste.</p>
+          <div class="cta-row">
+            <a class="btn" href="./learn.html#lessons">Lesson Starters</a>
+            <a class="btn ghost" href="./index.html#tools">Classroom Tools</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
