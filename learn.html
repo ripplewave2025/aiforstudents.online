@@ -1,49 +1,71 @@
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI for Students — Learn</title>
-<link rel="stylesheet" href="assets/site.css">
-</head><body>
-<header><nav class="nav">
-  <a href="index.html" style="font-weight:700">AI for Students</a>
-  <div><a href="tools.html">Tools</a><a href="learn.html">Learn</a><a href="index.html#parents">Parents</a></div>
-</nav></header>
-
-<main class="container">
-  <h1>What we do</h1>
-  <p>We teach students to use AI **safely** and **honestly** to learn faster: ask better questions, show steps, verify facts, and practise.</p>
-
-  <div class="grid">
-    <div class="card"><div class="pad">
-      <h2>Good vs Bad Questions</h2>
-      <p class="small">Specific → goal → steps/examples → checks.</p>
-      <div class="code">Explain fractions with pizza. Then give 3 practice problems and check my answers.</div>
-    </div></div>
-
-    <div class="card"><div class="pad">
-      <h2>Verify & Cite</h2>
-      <p class="small">AI can be wrong. Ask for sources; cross-check with textbook.</p>
-      <div class="code">Give sources for the water cycle explanation. Where could this be wrong?</div>
-    </div></div>
-
-    <div class="card"><div class="pad">
-      <h2>From Help → Mastery</h2>
-      <p class="small">Turn summaries into practice. Make spaced-repetition cards.</p>
-      <div class="code">Turn this chapter summary into 8 flashcards (Q/A) with answers hidden.</div>
-    </div></div>
-  </div>
-
-  <h2 style="margin-top:24px">Resources</h2>
-  <ul class="small">
-    <li><a href="tools.html">Tool prompts for Class 6–10</a></li>
-    <li>Printable “Show Your Work” sheet (coming soon)</li>
-    <li>Parent guide & teacher pilot (coming soon)</li>
-  </ul>
-
-  <div class="row" style="margin-top:16px">
-    <a class="btn" href="tools.html">Start with Tools</a>
-    <a class="btn ghost" href="index.html#parents">For Parents/Teachers</a>
-  </div>
-
-  <div class="footer">Safety: no accounts for minors in MVP. No PII. Verify everything.</div>
-</main>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI for Students — Learn</title>
+  <meta name="description" content="Learn how to use AI safely and effectively as a student helper">
+  <link rel="stylesheet" href="./assets/css/site.css">
+  <script src="./js/main.js" defer></script>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a href="./index.html"><strong>AI for Students</strong></a>
+      <a href="./tools.html">Tools</a>
+      <a href="./learn.html" aria-current="page">Learn</a>
+      <a href="./parents.html">Parents</a>
+    </nav>
+  </header>
+  <main class="container">
+    <h1>What we do</h1>
+    <p>We teach students to use AI **safely** and **honestly** to learn faster: ask better questions, show steps, verify facts, and practise.</p>
+    
+    <div class="grid">
+      <div class="card">
+        <div class="pad">
+          <h3>Good vs Bad Questions</h3>
+          <p class="small">Specific → goal → steps/examples → checks.</p>
+          <div class="code">Explain fractions with pizza. Then give 3 practice problems and check my answers.</div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="pad">
+          <h3>Verify &amp; Cite</h3>
+          <p class="small">AI can be wrong. Ask for sources; cross-check with textbook.</p>
+          <div class="code">Give sources for the water cycle explanation. Where could this be wrong?</div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="pad">
+          <h3>From Help → Mastery</h3>
+          <p class="small">Turn summaries into practice. Make spaced-repetition cards.</p>
+          <div class="code">Turn this chapter summary into 8 flashcards (Q/A) with answers hidden.</div>
+        </div>
+      </div>
+    </div>
+    
+    <h2 style="margin-top:24px">Resources</h2>
+    <ul class="small">
+      <li><a href="tools.html">Tool prompts for Class 6–10</a></li>
+      <li>Printable "Show Your Work" sheet (coming soon)</li>
+      <li>Parent guide &amp; teacher pilot (coming soon)</li>
+    </ul>
+    
+    <div id="lessons-list" class="grid"></div>
+    
+    <div class="row" style="margin-top:16px">
+      <a class="btn" href="tools.html">Start with Tools</a>
+      <a class="btn ghost" href="index.html#parents">For Parents/Teachers</a>
+    </div>
+  </main>
+  
+  <footer class="footer">
+    <div class="container">
+      <span>Use AI as a helper. Verify facts.</span>
+    </div>
+  </footer>
+</body>
+</html>
