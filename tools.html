@@ -1,21 +1,48 @@
-<link rel="stylesheet" href="site.css">
-<script defer src="./assets/js/main.js"></script>
-<header><nav class="nav">
-  <a href="index.html" style="font-weight:700">AI for Students</a>
-  <div><a href="tools.html">Tools</a><a href="./parents.html">Parents</a><a href="learn.html#parents">Parents</a></div>
-</nav></header>
-
-<main class="container">
-  <h1>Free AI Tools (curated)</h1>
-  <div class="row" style="margin:8px 0 16px;">
-    <input id="q" placeholder="Search tools or prompts" style="padding:10px 12px;border:1px solid #3a3f57;border-radius:12px;width:min(360px,90vw);background:#0b0e18;color:#d1d5db;">
-    <select id="grade" style="padding:10px 12px;border:1px solid #3a3f57;border-radius:12px;background:#0b0e18;color:#d1d5db;">
-      <option value="0">All Grades</option>
-      <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-    </select>
-    <span class="small">Use AI as a helper. Verify facts.</span>
-  </div>
-  <div id="tools-grid" class="grid"></div>
-  <div id="no-results" class="small" style="display:none;margin-top:10px;">No matches. Try a different search.</div>
-  <div class="footer">Tips: add context → ask for steps → verify with textbook/site.</div>
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Free AI Tools - AI for Students</title>
+  <link href="./assets/css/site.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a href="./index.html" style="font-weight:700">AI for Students</a>
+      <div>
+        <a href="./index.html">Home</a>
+        <a href="./tools.html" aria-current="page">Tools</a>
+        <a href="./learn.html">Learn</a>
+        <a href="./parents.html">Parents</a>
+      </div>
+    </nav>
+  </header>
+  
+  <main class="container">
+    <h1>Free AI Tools (curated)</h1>
+    <div class="row" style="margin:12px 0 16px">
+      <input id="q" type="search" placeholder="Search tools or prompts..." aria-label="Search tools" />
+      <label for="grade" class="small">Filter by class</label>
+      <select id="grade">
+        <option value="">All Grades</option>
+        <option value="6">Class 6</option>
+        <option value="7">Class 7</option>
+        <option value="8">Class 8</option>
+        <option value="9">Class 9</option>
+        <option value="10">Class 10</option>
+      </select>
+    </div>
+    <div id="tools-grid" class="grid" aria-live="polite"></div>
+    <p id="no-results" class="small" style="display:none">No matches. Try a different search.</p>
+  </main>
+  
+  <footer>
+    <div class="container">
+      <p class="small">Tips: add context → ask for steps → verify with textbook/site.</p>
+    </div>
+  </footer>
+  
+  <script src="./js/main.js" defer></script>
+</body>
+</html>
