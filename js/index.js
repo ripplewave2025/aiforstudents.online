@@ -1,4 +1,4 @@
-class AHole extends HTMLElement {
+class AICanvas extends HTMLElement {
   constructor() {
     super();
     const template = document.createElement("template");
@@ -28,39 +28,31 @@ class AHole extends HTMLElement {
       </style>
       <canvas></canvas>
       <div class="overlay"></div>
-      <slot></slot>
     `;
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-
     this.canvas = this.shadowRoot.querySelector("canvas");
     this.ctx = this.canvas.getContext("2d");
     this.circles = [];
   }
-
   connectedCallback() {
     this.resize();
     this.animate();
     window.addEventListener("resize", this.resize.bind(this));
   }
-
   disconnectedCallback() {
     window.removeEventListener("resize", this.resize.bind(this));
   }
-
   resize() {
     this.canvas.width = this.offsetWidth;
     this.canvas.height = this.offsetHeight;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
-
   animate() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
     if (Math.random() > 0.95) {
       this.circles.push(this.createCircle());
     }
-
     for (let i = this.circles.length - 1; i >= 0; i--) {
       const circle = this.circles[i];
       if (circle.radius > circle.maxRadius || circle.opacity <= 0) {
@@ -71,10 +63,8 @@ class AHole extends HTMLElement {
       circle.opacity = 1 - circle.radius / circle.maxRadius;
       this.drawCircle(circle);
     }
-
     requestAnimationFrame(this.animate.bind(this));
   }
-
   createCircle() {
     const maxRadius = Math.random() * 200 + 100;
     return {
@@ -87,7 +77,6 @@ class AHole extends HTMLElement {
       opacity: 1,
     };
   }
-
   drawCircle(circle) {
     this.ctx.beginPath();
     this.ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
@@ -96,4 +85,7 @@ class AHole extends HTMLElement {
   }
 }
 
-customElements.define("a-hole", AHole);
+// Register the custom element and ensure it runs after DOM is loaded
+window.addEventListener('DOMContentLoaded', () => {
+  customElements.define('ai-canvas', AICanvas);
+});
